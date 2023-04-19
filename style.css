@@ -1,0 +1,77 @@
+:root {
+    --cell-size: 100px;
+}
+
+body {
+    align-items: center;
+    background-color: #6eebbd;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.card-body {
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 70px;
+    position: relative;
+}
+
+h1, h3 {
+    margin: 30px;
+}
+
+
+.score {
+    text-align: left;
+    display: none;
+}
+
+.startBtn, .restartBtn {
+    border: 1px solid #ffcc99;
+    border-radius: 10px;
+    background-color: #ffcc99;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+}
+
+.hidden { 
+    display: none;
+}
+
+.play-board {
+    background-color: #000;
+    cursor: pointer;
+    border: 1px solid #000;
+    height: 500px;
+    width: 500px;
+    position: relative;
+ }
+
+ .play-board .food {
+    background-color: red;
+ }
+
+ .play-board .snake {
+    background-color: yellow;
+ }
+ 
+ .play-board .snakeHead {
+    background-color: orange;
+ }
+
+ #game-over {
+    background-color: #ffffff6e;
+    color: red;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+ }
