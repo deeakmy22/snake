@@ -58,15 +58,17 @@ class Snake {
     this.gameOver = true;
   }
 
-  // nu ii este permis sarpelui daca are lungimea mai mare decat 1 sa se intoarca pe directia
-  // din care vine
+  // seteaza directia
+  // si verifica daca sarpele are lungimea mai mare decat 1 acceaseaza functia _isOppositeDirection
   setDirections(direction) {
     if (this.bodySnake.length > 1 && this._isOppositeDirection(direction))
       return;
     this.direction = direction;
   }
 
-  //
+  // am creat o functie in care se deplaseaza sarpele, acceseaza functia _checkCurrentPosition;
+  //  pe urma verific daca a ajuns sarpele cu capul la mancare sa se acceseze functia de generare a
+  //  unei noi pozitii a mancarii sau se deplaseze in continuare daca nu a intalnit nimic
   moveSnake() {
     const head = { ...this.bodySnake[0] };
     if (this.direction === DIRECTION.UP) {
@@ -186,6 +188,8 @@ const drawGameBoard = () => {
   }
 };
 
+// am creat o functie de start a jocului in care butoanele cu dificultatea jocului
+// vor disparea si va aparea pe tabla de joc sarpele si mancarea, impreuna cu scorul
 const startGame = () => {
   startButtonsEl.style.display = "none";
   playBoardEl.style.gridTemplate =
@@ -195,10 +199,13 @@ const startGame = () => {
   drawGameBoard();
 };
 
+// functia de oprire a ciclului jocului
 const stopGameLoop = (interval) => {
   clearInterval(interval);
 };
 
+// am creat o functie de ciclu a jocului in care sarpele se va misca pe directie ceruta la tastatura pana
+// sunt indeplinite conditiile de oprire a jocului
 const gameLoop = () => {
   const interval = setInterval(() => {
     snake.moveSnake();
