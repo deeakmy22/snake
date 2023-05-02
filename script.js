@@ -58,17 +58,16 @@ class Snake {
     this.gameOver = true;
   }
 
-  // seteaza directia
-  // si verifica daca sarpele are lungimea mai mare decat 1 acceaseaza functia _isOppositeDirection
+  // set the direction and check if the snake has length greater than 1 access the _isOppositeDirection function
   setDirections(direction) {
     if (this.bodySnake.length > 1 && this._isOppositeDirection(direction))
       return;
     this.direction = direction;
   }
 
-  // am creat o functie in care se deplaseaza sarpele, acceseaza functia _checkCurrentPosition;
-  //  pe urma verific daca a ajuns sarpele cu capul la mancare sa se acceseze functia de generare a
-  //  unei noi pozitii a mancarii sau se deplaseze in continuare daca nu a intalnit nimic
+  // I created a function where the snake moves, access the _checkCurrentPosition function; then
+  // then check if the snake has reached the food to access the function to generate the
+  // a new position of the food or move on if it hasn't encountered anything
   moveSnake() {
     const head = { ...this.bodySnake[0] };
     if (this.direction === DIRECTION.UP) {
@@ -96,7 +95,7 @@ class Snake {
     }
   }
 
-  // in aceasta functie nu ii permit sarpelui sa se intoarca pe directie de unde a venit
+  // in this function they don't allow the snake to go back the way it came
   _isOppositeDirection(newDirection) {
     if (this.direction === DIRECTION.UP && newDirection === DIRECTION.DOWN)
       return true;
@@ -109,7 +108,7 @@ class Snake {
     return false;
   }
 
-  // in aceasta functie generez aleator o noua mancare dupa ce a fost mancata de sarpe
+  // in this function I randomly generate a new food on a new position after it has been eaten by the snake
   _generateFood() {
     let fpx = Math.floor(Math.random() * this.boardSize);
     let fpy = Math.floor(Math.random() * this.boardSize);
@@ -121,8 +120,7 @@ class Snake {
     this.foodPosition.y = fpy;
   }
 
-  // aceasta functie o folosesc pentru a verifica daca sarpele a atins cu capul
-  // marginea tablei de jos sau daca si-a atins cu capul coada
+  // this function I use it to check if the snake has touched its head the edge of the board or if it has touched its head to its tail
   _checkCurrentPosition(head) {
     if (
       head.x < 0 ||
@@ -152,8 +150,7 @@ const restartButtonEl = document.getElementById("restart-button");
 const BOARDSIZE = 40;
 let snake;
 
-// folosesc functia asta ca sa redesenz jocul dupa fiecare miscare a sarpelui,
-// altfel nu vom putea vedea urmatoarea pozitie a sarpelui
+// I use this function to redraw the game after each snake move, otherwise we won't be able to see the next snake position
 const drawGameBoard = () => {
   const bodySnake = snake.getBodySnake();
   const foodPosition = snake.getFoodPosition();
@@ -188,8 +185,8 @@ const drawGameBoard = () => {
   }
 };
 
-// am creat o functie de start a jocului in care butoanele cu dificultatea jocului
-// vor disparea si va aparea pe tabla de joc sarpele si mancarea, impreuna cu scorul
+// I created a game start function where the game difficulty buttons will disappear
+// and the snake and food will appear on the game board, along with the score
 const startGame = () => {
   startButtonsEl.style.display = "none";
   playBoardEl.style.gridTemplate =
@@ -199,13 +196,13 @@ const startGame = () => {
   drawGameBoard();
 };
 
-// functia de oprire a ciclului jocului
-const stopGameLoop = (interval) => {
+// the stop game loop function
+function stopGameLoop(interval) {
   clearInterval(interval);
-};
+}
 
-// am creat o functie de ciclu a jocului in care sarpele se va misca pe directie ceruta la tastatura pana
-// sunt indeplinite conditiile de oprire a jocului
+// we have created a game cycle function where the snake will move in the direction requested
+// on the keyboard until the conditions for stopping the game are met
 const gameLoop = () => {
   const interval = setInterval(() => {
     snake.moveSnake();
@@ -221,7 +218,7 @@ const gameLoop = () => {
   }, snake.getSpeed());
 };
 
-// initializam obiectul snake in functie de gradul de dificultate
+// initialize the snake object according to the difficulty level
 const easyStart = () => {
   snake = new Snake(BOARDSIZE, 300);
   startGame();
@@ -236,8 +233,8 @@ const hardStart = () => {
   startGame();
 };
 
-// folosind aceasta functie am setat directia sarpelui sa corespunda cu sagetile
-// de la tastatura
+// using this function I set the snake direction to correspond to the arrows
+// on the keyboard
 const onKeyDown = (event) => {
   if (event.key === "ArrowDown") snake.setDirections(DIRECTION.DOWN);
   if (event.key === "ArrowUp") snake.setDirections(DIRECTION.UP);
